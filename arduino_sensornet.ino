@@ -31,23 +31,23 @@ EthernetClient client;
 //http://prerel1.commacmms.com
 //http://prerel2.commacmms.com
 char server[] = "prerel.commacmms.com";
-char read_key = "Enter Read Key Here";
-char write_key = "Enter Write Key Here";
+char read_key[] = "Enter Read Key Here";
+char write_key[] = "Enter Write Key Here";
 
 //you can edit wosummary and/ or wodescription inline on the code below to 
 //allow you to send dynamic information from board sensors, hence generating 
 //more cler information.
-char wosummary = "Enter the text to send as summary";
-char wodescription = "Enter the text to send as description";
+char wosummary[] = {"Enter the text to send as summary"};
+char wodescription[] = "Enter the text to send as description";
 
 //****************END API CONFIGURATION****************
 
 //****************OTHER CONFIGURATION****************
 //EDIT ONLY IF YOU KNOW WHAT YOU ARE DOING!!!
 //See API information for details of what these mean
-char request_code = "wr_create;
-char wotypes[] = {"P1","P2","P3","P4","P5"};
-char wopriorities[] = {"cor","prev","pred","break","oth"};
+char request_code[] = "wr_create";
+char* wotypes[] = {"P1", "P2", "P3", "P4", "P5"};
+char* wopriorities[] = {"cor", "prev", "pred", "break", "oth"};
 //****************END OTHER CONFIGURATION****************
 
 void setup() {
