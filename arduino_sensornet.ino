@@ -30,7 +30,7 @@ EthernetClient client;
 //http://prerel.commacmms.com
 //http://prerel1.commacmms.com
 //http://prerel2.commacmms.com
-char server[] = "f001.commacmms.com";
+char server[] = "prerel.commacmms.com";
 char read_key[] = "Enter Read Key Here";
 char write_key[] = "Enter Write Key Here";
 
@@ -115,18 +115,18 @@ void setup() {
 void loop()
 {
   //This has no need to be a fast process. Set a refresh interval of
-  //10 seconds between value samples:
-  delay(10000);
+  //x seconds between value samples:
+  //delay(10000);
   
   //Read sensor inputs:
   
-  //Determine if values are above limits:
+  //Determine if values are above set limits:
   
-  //Prepare GET string:
+  //Build GET string:
   
   //Contact server with fault details:
   client.println("GET /apiengine? HTTP/1.1");
-  client.println("Host: f001.commacmms.com");
+  client.println("Host: prerel.commacmms.com");
   client.println("Connection: close");
   client.println();
   
