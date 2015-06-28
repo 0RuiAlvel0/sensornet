@@ -11,5 +11,14 @@ The current code was developed for the VERY old arduino duemillenove, and we wou
 
 #Create your first comma CMMS work request
 
+***comma CMMS configuration:
 1. Register for a free comma CMMS trial account at the <a href="http://commacmms.com">comma CMMS website</a>.
-2. Setup an API node and get the write and read keys.
+2. Login to comma CMMS and go to "Logged in as..." -> "Modules"-> "API".
+3. Click the "+Node" button.
+4. Enter "Test node" for node name and "Test node" for node description. Leave all other options as they are (ensure "Set as development node" is checked).
+5. Click "Add".
+
+***On the client side:
+1. Open your arduino IDE (where you write and download the programs).
+2. Copy and paste the code on the "arduino_sensornet.ino" file to a new arduino sketch.
+3. 
