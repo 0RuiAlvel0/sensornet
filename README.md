@@ -30,10 +30,10 @@ Step 1: plug your ethernet shield on top of your arduino controller board
 Step 2: plug in your ethernet shield to an ethernet cable with internet access.
 
 Step 3: connect the circuit specified on the following picture (or simlar):
-![arduino example circuit](http://googledrive.com/host/0B-a-9_EzFNVnQ0tBd1QxeVhTLWM/actual.jpg)
+![arduino example circuit](https://bf370cdf3c8cf9f2feb847c79de6d22707228d49.googledrive.com/host/0B-a-9_EzFNVnfklkdzhXRVdyeEN1cHdXV3NLaEc0VnJwc0ZUNlhWeFBQVUREaWRXaVI5Tlk/drawing.jpg)
 
 The implementation of the circuit above:
-![arduino example circuit actual](http://googledrive.com/host/<folderID>/<filename>)
+![arduino example circuit actual](https://582af23bf6cdff4b15e9a43305422732250f5d39.googledrive.com/host/0B-a-9_EzFNVnQ0tBd1QxeVhTLWM/)
 
 Step 4: connect your arduino to your computer
 
