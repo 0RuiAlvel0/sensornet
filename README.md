@@ -46,7 +46,7 @@ Step 1: Open your arduino IDE (where you write and download the programs).
 
 Step 2: Copy and paste the code on the "arduino_sensornet.ino" file to a new arduino sketch.
 
-Step 3: Look at the Request string text which will be something like the following:
+Step 3: Look at the Request string text which will be something like the following (you can see this by clicking "display" on the list of available nodes on your account):
 http://server_name/apiengine?f=output_format&o=number_1&n=number_2&w=write_key&r=read_key&rc=request_code&parameters
 
 take the values above and place them on the following variables:
