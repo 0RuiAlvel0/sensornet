@@ -32,7 +32,7 @@ Step 2: plug in your ethernet shield to an ethernet cable with internet access.
 Step 3: connect the circuit specified on the following picture (or simlar):
 ![arduino example circuit](https://bf370cdf3c8cf9f2feb847c79de6d22707228d49.googledrive.com/host/0B-a-9_EzFNVnfklkdzhXRVdyeEN1cHdXV3NLaEc0VnJwc0ZUNlhWeFBQVUREaWRXaVI5Tlk/drawing.jpg)
 
-The value of R is not very important but try to use anything from 1K to 10K.
+The value of R is not very important but try to use anything from 1K to 10K, except for the leftmost R where you should not go too much above 1K5, otherwise the LED will be too dim.
 
 The implementation of the circuit above:
 ![arduino example circuit actual](https://582af23bf6cdff4b15e9a43305422732250f5d39.googledrive.com/host/0B-a-9_EzFNVnQ0tBd1QxeVhTLWM/)
