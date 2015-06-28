@@ -66,6 +66,6 @@ Leave all other variables as they are.
 ##Final steps
 Step 1: load the arduino code to the board
 
-Step 2: Connect your serial monitor
+Step 2: Connect your serial monitor (the magnifier symbol on the top right of the arduino IDE).
 
-Step 3: If all went well, you should see system messages.
+Step 3: If all went well, you should see system messages on the serial monitor window.
