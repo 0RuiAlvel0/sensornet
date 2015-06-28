@@ -30,32 +30,37 @@ EthernetClient client;
 //http://prerel.commacmms.com
 //http://prerel1.commacmms.com
 //http://prerel2.commacmms.com
+//See the details page of your node to get the following information:
 char server[] = "prerel.commacmms.com";
-char read_key[] = "Enter Read Key Here";
-char write_key[] = "Enter Write Key Here";
-
-//you can edit wosummary and/ or wodescription inline on the code below to 
-//allow you to send dynamic information from board sensors, hence generating 
-//more cler information.
-char wosummary[] = "Enter the text to send as summary";
-char wodescription[] = "Enter the text to send as description";
+char read_key[] = "read_key";
+char write_key[] = "write_key";
+char o[] = "o_id";
+char n[] = "node_id";
+char output_format[] = "json";
+char request_code[] = "wr_create";
+char parameters[] = "typ=cor&pri=P3";
+//Do not edit the summary of description here. Do it below on the code
+//so you can specify the exact problem that ocurred
+String sum = "";
+String desc = "";
 //****************END API CONFIGURATION****************
 
 //****************PHYSICAL CONNECTIONS CONFIGURATION****************
 //RESERVED PAUSE Pin
 //You should always implement a feature that will let you pause
 //the controller so you can do work on equipment without having false
-//wor requests being generated. As best practices, we will reserve pin 12 of 
+//work requests being generated. As best practices, we will reserve pin 9 of 
 //the board for this purpose:
-int pausePin = 12;
+int pausePin = 9;
+//variable that will hold the current value of the switch
+int Pause = 0;
 
 //DIGITAL SENSORS AREA
 //-examples-
 //microswitch on pin 11
-int switchPin = 11;
-//Select trigger condition
-//for each digital sensor always use TriggerHigh_<pin number> = true, false;
-int TriggerHigh_11 = false;
+int switchPin = 8;
+//variable that will hold the current value of the switch
+int Switch = LOW;
 
 //END DIGITAL SENSORS AREA
 //ANALOG SENSORS AREA
@@ -69,28 +74,27 @@ int LightSensor = 0;
 //TopLimit<pin_number>
 //BottomLimit<pin_number>
 
-float TopLimit0 = 200;
-float BottomLimit0 = 100;
+float TopLimit0 = 1023;
+float BottomLimit0 = 0;
 
 //END ANALOG SENSORS AREA
 //****************END PHYSICAL CONNECTIONS CONFIGURATION****************
-
-//****************OTHER CONFIGURATION****************
-//EDIT ONLY IF YOU KNOW WHAT YOU ARE DOING!!!
-//See API information for details of what these mean
-char request_code[] = "wr_create";
-char* wotypes[] = {"P1", "P2", "P3", "P4", "P5"};
-char* wopriorities[] = {"cor", "prev", "pred", "break", "oth"};
-char get_string[] = "";
-//****************END OTHER CONFIGURATION****************
-
+//*********************************SETUP SYSTEM****************************
 void setup() {
+  //prepare hardware pause input
+  pinMode(pausePin,INPUT);
+  
+  //prepare digital input
+  pinMode(switchPin,INPUT);
+  
   // Open serial communications and wait for port to open:
   Serial.begin(9600);
   while (!Serial) {
     ; // wait for serial port to connect. 
   }
-
+  
+  Serial.println("comma CMMS sensorNET Project. Initializing...");
+  
   // start the Ethernet connection:
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
@@ -100,8 +104,91 @@ void setup() {
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
-  Serial.println("connecting...");
+}
+//****************************END SETUP SYSTEM******************************
 
+//*****************************LOOP IT!!************************************
+void loop(){ 
+  //READ PAUSE INPUT
+  Pause = digitalRead(pausePin);
+  //Read sensor inputs:
+  //digital:
+  Switch = digitalRead(switchPin);
+  //analog:
+  LightSensor = analogRead(analogPin);
+  delay(5);
+  
+  if(Pause == LOW){
+    Serial.println("In paused state. Not contacting server.");
+    Serial.print("Light Sensor(A0): ");
+    Serial.println(LightSensor);
+    Serial.print("Digital Input(8): ");
+    Serial.println(Switch);
+    delay(1000);
+  }
+  else{
+    boolean has_trigger = false;
+    //Build GET string:
+    //customize the summary and description, depending on what error was caught:
+    //The error reported to the system will be the last one on the next list (PRIORITY 1):
+    //***PRIORITY 2 - on this example the digital switch value is less important than the temperature
+    if(Switch == HIGH){
+      sum = "&sum=Input%201%20triggered";
+      desc = "&desc=Do%20something%20to%20fix%20this%20problem";
+      has_trigger = true;
+    }
+    
+    //***PRIORITY 1
+    if(LightSensor > TopLimit0){
+      sum = "&sum=Reached%20value%20"+String(TopLimit0);
+      desc = "&desc=Do%20something%20to%20fix%20this%20problem";
+      has_trigger = true;
+    }
+    else if(LightSensor < TopLimit0){
+      //actually we do not want to trigger anyting on low value
+    }
+    
+    //*********************************CONTACT SERVER*******************
+    //Contact server with fault details if a fault has been triggered:
+    if(has_trigger){
+      String query = String("f="+String(output_format)+
+      "&o=92&n=10&w="+String(write_key)+"&r="+String(read_key)+
+      "&rc="+String(request_code)+"&"+String(parameters)+sum+desc);
+      
+      client.println("GET /apiengine?"+query+" HTTP/1.1");
+    }
+    else
+      client.println("GET /apiengine? HTTP/1.1");
+      
+    client.println("Host: "+String(server));
+    client.println("Connection: close");
+    client.println();
+    
+    // if there are incoming bytes available
+    // from the server, read them and print them:
+    if (client.available()) {
+      char c = client.read();
+      Serial.print(c);
+    }
+  
+    // if the server's disconnected, stop the client:
+    if (!client.connected()) {
+      Serial.println();
+      Serial.println("disconnecting.");
+      client.stop();
+      connect_to_server();
+      //DO NOT MAKE THE RECONNECT INTERVAL TOO SMALL (60000 is a good number. 3000 for tests).
+      Serial.println(".......connecting again in 3s.......");
+      delay(3000);
+    }
+    //*****************************END CONTACT SEVER**********************  
+  }
+}
+//*******************************END LOOP IT!!*******************************
+
+//*******************************OTHER SYSTEM FUCTIONS*******************************
+boolean connect_to_server() {
+  Serial.println("connecting to comma CMMS server "+String(server));
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
     Serial.println("connected");
@@ -111,39 +198,4 @@ void setup() {
     Serial.println("connection failed");
   }
 }
-
-void loop()
-{
-  //This has no need to be a fast process. Set a refresh interval of
-  //x seconds between value samples:
-  //delay(10000);
-  
-  //Read sensor inputs:
-  
-  //Determine if values are above set limits:
-  
-  //Build GET string:
-  
-  //Contact server with fault details:
-  client.println("GET /apiengine? HTTP/1.1");
-  client.println("Host: prerel.commacmms.com");
-  client.println("Connection: close");
-  client.println();
-  
-  // if there are incoming bytes available
-  // from the server, read them and print them:
-  if (client.available()) {
-    char c = client.read();
-    Serial.print(c);
-  }
-
-  // if the server's disconnected, stop the client:
-  if (!client.connected()) {
-    Serial.println();
-    Serial.println("disconnecting.");
-    client.stop();
-
-    // do nothing forevermore:
-    while (true);
-  }
-}
+//*******************************OTHER SYSTEM FUCTIONS*******************************
