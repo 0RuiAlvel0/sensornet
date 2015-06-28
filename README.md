@@ -29,7 +29,7 @@ Step 1: plug your ethernet shield on top of your arduino controller board
 
 Step 2: plug in your ethernet shield to an ethernet cable with internet access.
 
-Step 3: connect the circuit specified on the following picture:
+Step 3: connect the circuit specified on the following picture (or simlar):
 ![alt text](https://drive.google.com/file/d/0B-a-9_EzFNVncXpYY3I0NU9xYVU/view?usp=sharing "arduino example circuit")
 The implemtation of the circuit above:
 ![alt text](https://drive.google.com/file/d/0B-a-9_EzFNVnQ0tBd1QxeVhTLWM/view?usp=sharing "arduino example circuit actual")
@@ -45,10 +45,15 @@ Step 3: Look at the Request string text which will be something like the followi
 http://server_name/apiengine?f=output_format&o=number_1&n=number_2&w=write_key&r=read_key&rc=request_code&parameters
 
 take the values above and place them on the following variables:
+
 char server[] = "server_name";
+
 char read_key[] = "read_key";
+
 char write_key[] = "write_key";
+
 char o[] = "number_1";
+
 char n[] = "number_2";
 
 Leave all other variables as they are.
