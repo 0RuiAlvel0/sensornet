@@ -11,11 +11,17 @@ The current code was developed for the VERY old arduino duemillenove, and we wou
 
 #Configuration Steps
 
-##comma CMMS configuration:
+##comma CMMS configuration: 
+
 Step 1: Register for a free comma CMMS trial account at the <a href="http://commacmms.com">comma CMMS website</a>.
+
 Step 2: Login to comma CMMS and go to "Logged in as..." -> "Modules"-> "API".
+
 Step 3: Click the "+Node" button.
-Step 4:Enter "Test node" for node name and "Test node" for node description. Leave all other options as they are (ensure "Set as development node" is checked).
+
+Step 4:Enter "Test node" for node name and "Test node" for node description. Leave all other options as they are 
+(ensure "Set as development node" is checked).
+
 Step 5: Click "Add".
 
 ##Cient side hardware setup:
