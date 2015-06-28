@@ -56,7 +56,7 @@ char o[] = "number_1";
 
 char n[] = "number_2";
 
-Leave all other variables as they are.
+Leave all other variables as they are. 
 
 ##Final steps
 Step 1: load the arduino code to the board
