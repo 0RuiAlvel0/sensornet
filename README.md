@@ -11,20 +11,20 @@ The current code was developed for the VERY old arduino duemillenove, and we wou
 
 #Configuration Steps
 
--- comma CMMS configuration:
+##comma CMMS configuration:
 Step 1: Register for a free comma CMMS trial account at the <a href="http://commacmms.com">comma CMMS website</a>.
 Step 2: Login to comma CMMS and go to "Logged in as..." -> "Modules"-> "API".
 Step 3: Click the "+Node" button.
 Step 4:Enter "Test node" for node name and "Test node" for node description. Leave all other options as they are (ensure "Set as development node" is checked).
 Step 5: Click "Add".
 
--- Cient side hardware setup:
+##Cient side hardware setup:
 Step 1: plug your ethernet shield on top of your arduino controller board
 Step 2: plug in your ethernet shield to an ethernet cable with internet access.
 Step 3: connect the circuit specified on the following picture
 Step 4: connect your arduino to your computer
 
--- Client side software configuration:
+##Client side software configuration:
 Step 1: Open your arduino IDE (where you write and download the programs).
 Step 2: Copy and paste the code on the "arduino_sensornet.ino" file to a new arduino sketch.
 Step 3: Look at the Request string text which will be something like the following:
@@ -39,7 +39,7 @@ char n[] = "number_2";
 
 Leave all other variables as they are.
 
--- Final steps
+##Final steps
 Step 1: load the arduino code to the board
 Step 2: Connect your serial monitor
-Step 3: If all went well, you should see system messages
+Step 3: If all went well, you should see system messages.
