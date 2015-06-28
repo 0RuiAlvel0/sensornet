@@ -34,6 +34,8 @@ Step 3: connect the circuit specified on the following picture (or simlar):
 
 The value of R is not very important but try to use anything from 1K to 10K, except for the leftmost R where you should not go too much above 1K5, otherwise the LED will be too dim.
 
+The 5V are actually supplied by the arduino itself directly from the I/O headers.
+
 The implementation of the circuit above:
 ![arduino example circuit actual](https://582af23bf6cdff4b15e9a43305422732250f5d39.googledrive.com/host/0B-a-9_EzFNVnQ0tBd1QxeVhTLWM/)
 
