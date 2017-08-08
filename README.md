@@ -1,3 +1,5 @@
+#THIS HAS BEEN DEPRECATED AS OUR API HAS CHANGED. If you would like to contribute with your own client connection to comma CMMS, please contact us and we will be happy to provide API information to allow you to do that.
+
 # What is the sensorNET project?
 Open source arduino code designed to operate with comma CMMS API and generate equipment work requests automatically based on actual field conditions
 
